@@ -1,0 +1,558 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Enhanced medical healthcare color scheme with professional medical blues and greens */
+  --background: oklch(0.99 0.005 220); /* Clean medical white with slight blue tint */
+  --foreground: oklch(0.2 0.01 220); /* Professional dark blue-grey text */
+  --card: oklch(0.98 0.01 200); /* Clean card background with medical tint */
+  --card-foreground: oklch(0.2 0.01 220);
+  --popover: oklch(0.99 0.005 220);
+  --popover-foreground: oklch(0.2 0.01 220);
+  --primary: oklch(0.55 0.15 220); /* Professional medical blue (scrub blue) */
+  --primary-foreground: oklch(0.99 0.005 220);
+  --secondary: oklch(0.65 0.12 160); /* Medical green (surgical green) */
+  --secondary-foreground: oklch(0.99 0.005 220);
+  --muted: oklch(0.96 0.01 200);
+  --muted-foreground: oklch(0.5 0.02 220);
+  --accent: oklch(0.7 0.1 180); /* Soft teal accent for medical trust */
+  --accent-foreground: oklch(0.15 0.01 220);
+  --destructive: oklch(0.6 0.2 15); /* Medical red for alerts */
+  --destructive-foreground: oklch(0.99 0.005 220);
+  --border: oklch(0.92 0.02 200);
+  --input: oklch(0.98 0.01 200);
+  --ring: oklch(0.55 0.15 220);
+  --chart-1: oklch(0.55 0.15 220); /* Medical blue */
+  --chart-2: oklch(0.65 0.12 160); /* Medical green */
+  --chart-3: oklch(0.7 0.1 180); /* Medical teal */
+  --chart-4: oklch(0.75 0.08 140); /* Light medical green */
+  --chart-5: oklch(0.8 0.06 200); /* Light medical blue */
+  --radius: 0.5rem;
+  --sidebar: oklch(0.98 0.01 200);
+  --sidebar-foreground: oklch(0.2 0.01 220);
+  --sidebar-primary: oklch(0.55 0.15 220);
+  --sidebar-primary-foreground: oklch(0.99 0.005 220);
+  --sidebar-accent: oklch(0.7 0.1 180);
+  --sidebar-accent-foreground: oklch(0.15 0.01 220);
+  --sidebar-border: oklch(0.92 0.02 200);
+  --sidebar-ring: oklch(0.55 0.15 220);
+
+  /* Added medical-specific color variables */
+  --medical-emergency: oklch(0.6 0.25 15); /* Emergency red */
+  --medical-success: oklch(0.65 0.15 140); /* Success green */
+  --medical-warning: oklch(0.75 0.15 60); /* Warning amber */
+  --medical-info: oklch(0.65 0.12 220); /* Info blue */
+  --medical-neutral: oklch(0.85 0.02 200); /* Neutral grey */
+}
+
+.dark {
+  /* Enhanced dark mode colors for medical theme */
+  --background: oklch(0.08 0.01 220);
+  --foreground: oklch(0.95 0.01 200);
+  --card: oklch(0.12 0.02 220);
+  --card-foreground: oklch(0.95 0.01 200);
+  --popover: oklch(0.12 0.02 220);
+  --popover-foreground: oklch(0.95 0.01 200);
+  --primary: oklch(0.65 0.15 220);
+  --primary-foreground: oklch(0.08 0.01 220);
+  --secondary: oklch(0.25 0.08 160);
+  --secondary-foreground: oklch(0.95 0.01 200);
+  --muted: oklch(0.15 0.02 220);
+  --muted-foreground: oklch(0.7 0.02 200);
+  --accent: oklch(0.6 0.12 180);
+  --accent-foreground: oklch(0.95 0.01 200);
+  --destructive: oklch(0.7 0.2 15);
+  --destructive-foreground: oklch(0.95 0.01 200);
+  --border: oklch(0.2 0.02 220);
+  --input: oklch(0.15 0.02 220);
+  --ring: oklch(0.65 0.15 220);
+  --chart-1: oklch(0.65 0.15 220);
+  --chart-2: oklch(0.6 0.12 160);
+  --chart-3: oklch(0.6 0.12 180);
+  --chart-4: oklch(0.55 0.1 140);
+  --chart-5: oklch(0.7 0.08 200);
+  --sidebar: oklch(0.12 0.02 220);
+  --sidebar-foreground: oklch(0.95 0.01 200);
+  --sidebar-primary: oklch(0.65 0.15 220);
+  --sidebar-primary-foreground: oklch(0.08 0.01 220);
+  --sidebar-accent: oklch(0.25 0.08 160);
+  --sidebar-accent-foreground: oklch(0.95 0.01 200);
+  --sidebar-border: oklch(0.2 0.02 220);
+  --sidebar-ring: oklch(0.65 0.15 220);
+
+  /* Dark mode medical colors */
+  --medical-emergency: oklch(0.7 0.25 15);
+  --medical-success: oklch(0.6 0.15 140);
+  --medical-warning: oklch(0.7 0.15 60);
+  --medical-info: oklch(0.65 0.12 220);
+  --medical-neutral: oklch(0.3 0.02 200);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Enhanced smooth animations for healthcare website */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-gentle {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes heartbeat {
+  0%,
+  50%,
+  100% {
+    transform: scale(1);
+  }
+  25%,
+  75% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* Animation Classes */
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+.animate-pulse-gentle {
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* Interactive Hover Effects */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(117, 215, 225, 0.3);
+}
+
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+.hover-rotate {
+  transition: transform 0.3s ease;
+}
+
+.hover-rotate:hover {
+  transform: rotate(5deg);
+}
+
+/* Medical-themed Loading States */
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.5) 60%,
+    rgba(255, 255, 255, 0)
+  );
+  background-size: 200px 100%;
+  animation: shimmer 2s infinite;
+}
+
+.loading-pulse {
+  animation: pulse-gentle 1.5s ease-in-out infinite;
+}
+
+/* Ripple Effect for Buttons */
+.ripple-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-effect::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.ripple-effect:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Smooth Page Transitions */
+.page-transition {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Medical Icon Animations */
+.medical-icon-pulse {
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+.medical-icon-heartbeat {
+  animation: heartbeat 1.2s ease-in-out infinite;
+}
+
+.medical-icon-breathe {
+  animation: breathe 3s ease-in-out infinite;
+}
+
+/* Staggered Animation Delays */
+.stagger-1 {
+  animation-delay: 0.1s;
+}
+.stagger-2 {
+  animation-delay: 0.2s;
+}
+.stagger-3 {
+  animation-delay: 0.3s;
+}
+.stagger-4 {
+  animation-delay: 0.4s;
+}
+.stagger-5 {
+  animation-delay: 0.5s;
+}
+
+/* Focus States for Accessibility */
+.focus-ring {
+  transition: box-shadow 0.2s ease;
+}
+
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(117, 215, 225, 0.5);
+}
+
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Scrollbar for Medical Theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+  opacity: 0.8;
+}
+
+/* Emergency Button Special Animation */
+.emergency-pulse {
+  animation: pulse-gentle 1s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+}
+
+.emergency-pulse:hover {
+  animation: none;
+  box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  transition: box-shadow 0.3s ease-out;
+}
+
+/* Card Hover Effects */
+.card-hover {
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.card-hover:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 100, 150, 0.1);
+}
+
+/* Text Animations */
+.text-shimmer {
+  background: linear-gradient(90deg, var(--foreground) 0%, var(--primary) 50%, var(--foreground) 100%);
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Loading Skeleton */
+.skeleton {
+  background: linear-gradient(90deg, var(--muted) 25%, var(--card) 50%, var(--muted) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Medical Progress Indicators */
+.progress-pulse {
+  animation: pulse-gentle 2s ease-in-out infinite;
+}
+
+/* Notification Slide In */
+.notification-slide {
+  animation: slideInRight 0.5s ease-out;
+}
+
+/* Medical Theme Specific Animations */
+.medical-fade-up {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.medical-scale-bounce {
+  animation: scaleIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+/* Added medical-specific utility classes */
+.bg-medical-emergency {
+  background-color: var(--medical-emergency);
+}
+
+.bg-medical-success {
+  background-color: var(--medical-success);
+}
+
+.bg-medical-warning {
+  background-color: var(--medical-warning);
+}
+
+.bg-medical-info {
+  background-color: var(--medical-info);
+}
+
+.bg-medical-neutral {
+  background-color: var(--medical-neutral);
+}
+
+.text-medical-emergency {
+  color: var(--medical-emergency);
+}
+
+.text-medical-success {
+  color: var(--medical-success);
+}
+
+.text-medical-warning {
+  color: var(--medical-warning);
+}
+
+.text-medical-info {
+  color: var(--medical-info);
+}
+
+.border-medical-primary {
+  border-color: var(--primary);
+}
+
+.border-medical-secondary {
+  border-color: var(--secondary);
+}
+
+/* Enhanced medical gradient backgrounds */
+.medical-gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+.medical-gradient-secondary {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+}
+
+.medical-gradient-hero {
+  background: linear-gradient(135deg, oklch(0.98 0.01 200) 0%, oklch(0.96 0.02 220) 50%, oklch(0.98 0.01 180) 100%);
+}
+
+/* Medical shadow utilities */
+.shadow-medical {
+  box-shadow: 0 4px 20px rgba(0, 100, 150, 0.1);
+}
+
+.shadow-medical-lg {
+  box-shadow: 0 8px 30px rgba(0, 100, 150, 0.15);
+}
+
+.shadow-medical-hover {
+  box-shadow: 0 12px 40px rgba(0, 100, 150, 0.2);
+}

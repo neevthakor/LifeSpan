@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicine Reminder - Healthcare Website</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 32px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .notification-status {
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .status-checking {
+            background: #ffeaa7;
+            color: #2d3436;
+        }
+
+        .status-granted {
+            background: #55efc4;
+            color: #00b894;
+        }
+
+        .status-denied {
+            background: #ff7675;
+            color: white;
+        }
+
+        .status-prompt {
+            background: #74b9ff;
+            color: #0984e3;
+            cursor: pointer;
+        }
+
+        .status-prompt:hover {
+            background: #0984e3;
+            color: white;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2d3436;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .time-inputs {
+            display: grid;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .time-input {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .time-input:hover {
+            background: #e9ecef;
+        }
+
+        input[type="time"] {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .btn-remove {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-remove:hover {
+            background: #ff3838;
+            transform: scale(1.05);
+        }
+
+        .btn-add-time {
+            width: 100%;
+            background: #48dbfb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .btn-add-time:hover {
+            background: #0abde3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(72, 219, 251, 0.4);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-submit:active {
+            transform: translateY(-1px);
+        }
+
+        .reminders-list {
+            margin-top: 50px;
+        }
+
+        .section-title {
+            margin-bottom: 25px;
+            color: #2d3436;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reminder-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .reminder-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .reminder-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .reminder-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+
+        .reminder-times {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .time-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+        }
+
+        .reminder-info {
+            color: #636e72;
+            font-size: 14px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-delete {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-delete:hover {
+            background: #ff3838;
+            transform: scale(1.05);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #b2bec3;
+        }
+
+        .empty-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .empty-subtext {
+            font-size: 14px;
+            color: #95a5a6;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            .reminder-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💊 Medicine Reminder</h1>
+        <p class="subtitle">Never miss your medication again! Set reminders and get notified on time.</p>
+
+        <div id="notificationStatus" class="notification-status status-checking">
+            Checking notification permissions...
+        </div>
+
+        <form id="reminderForm">
+            <div class="form-group">
+                <label>💊 Medicine Name</label>
+                <input type="text" id="medicineName" placeholder="e.g., Aspirin, Vitamin D, Blood Pressure Medicine" required>
+            </div>
+
+            <div class="form-group">
+                <label>⏰ Reminder Times</label>
+                <div id="timeInputs" class="time-inputs"></div>
+                <button type="button" class="btn-add-time" onclick="addTimeInput()">+ Add Another Time</button>
+            </div>
+
+            <div class="form-group">
+                <label>📅 Duration (Days)</label>
+                <input type="number" id="duration" min="1" max="365" value="7" required>
+            </div>
+
+            <div class="form-group">
+                <label>📆 Start Date</label>
+                <input type="date" id="startDate" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Set Reminder</button>
+        </form>
+
+        <div class="reminders-list">
+            <h2 class="section-title">📋 Active Reminders</h2>
+            <div id="remindersList"></div>
+        </div>
+    </div>
+
+    <!-- Load the reminder system -->
+    <script src="/medicine-reminder.js"></script>
+    
+    <script>
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🚀 Reminder Widget Loaded');
+            
+            // Set today as default start date
+            const today = new Date();
+            document.getElementById('startDate').valueAsDate = today;
+            
+            // Add initial time input
+            addTimeInput();
+            
+            // Check notification permission
+            checkNotificationPermission();
+            
+            // Load existing reminders
+            loadReminders();
+
+            // Listen for service worker messages
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.addEventListener('message', event => {
+                    console.log('Message from Service Worker:', event.data);
+                    if (event.data.type === 'MEDICINE_TAKEN') {
+                        // Reload reminders when medicine is marked as taken
+                        loadReminders();
+                    }
+                });
+            }
+        });
+
+        // Check notification permission
+        async function checkNotificationPermission() {
+            const statusDiv = document.getElementById('notificationStatus');
+            
+            if (!('Notification' in window)) {
+                statusDiv.innerHTML = '❌ Your browser does not support notifications';
+                statusDiv.className = 'notification-status status-denied';
+                return;
+            }
+
+            const permission = Notification.permission;
+            
+            if (permission === 'granted') {
+                statusDiv.innerHTML = '✅ Notifications are enabled - You\'re all set!';
+                statusDiv.className = 'notification-status status-granted';
+            } else if (permission === 'denied') {
+                statusDiv.innerHTML = '❌ Notifications are blocked. Please enable them in your browser settings to receive reminders.';
+                statusDiv.className = 'notification-status status-denied';
+            } else {
+                statusDiv.innerHTML = '⚠️ Click here to enable notifications';
+                statusDiv.className = 'notification-status status-prompt';
+                statusDiv.style.cursor = 'pointer';
+                statusDiv.onclick = async () => {
+                    const result = await Notification.requestPermission();
+                    checkNotificationPermission();
+                    if (result === 'granted') {
+                        new Notification('✅ Notifications Enabled!', {
+                            body: 'You will now receive medicine reminders',
+                            icon: '/placeholder-logo.png'
+                        });
+                    }
+                };
+            }
+        }
+
+        // Add time input field
+        function addTimeInput() {
+            const container = document.getElementById('timeInputs');
+            const div = document.createElement('div');
+            div.className = 'time-input';
+            
+            // Set default times if no inputs exist
+            const existingInputs = container.querySelectorAll('input[type="time"]');
+            let defaultTime = '';
+            
+            if (existingInputs.length === 0) {
+                defaultTime = '09:00'; // Morning
+            } else if (existingInputs.length === 1) {
+                defaultTime = '14:00'; // Afternoon
+            } else if (existingInputs.length === 2) {
+                defaultTime = '21:00'; // Night
+            }
+            
+            div.innerHTML = `
+                <input type="time" name="time[]" value="${defaultTime}" required>
+                <button type="button" class="btn-remove" onclick="this.parentElement.remove()">Remove</button>
+            `;
+            container.appendChild(div);
+        }
+
+        // Handle form submission
+        document.getElementById('reminderForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const medicineName = document.getElementById('medicineName').value.trim();
+            const duration = parseInt(document.getElementById('duration').value);
+            const startDate = new Date(document.getElementById('startDate').value);
+            
+            const timeInputs = document.querySelectorAll('input[name="time[]"]');
+            const times = Array.from(timeInputs).map(input => input.value).filter(t => t);
+
+            // Validation
+            if (!medicineName) {
+                alert('⚠️ Please enter medicine name');
+                return;
+            }
+
+            if (times.length === 0) {
+                alert('⚠️ Please add at least one reminder time');
+                return;
+            }
+
+            if (duration < 1) {
+                alert('⚠️ Duration must be at least 1 day');
+                return;
+            }
+
+            // Add reminder using the global instance
+            if (window.medicineReminder) {
+                try {
+                    window.medicineReminder.addReminder(medicineName, times, duration, startDate);
+                    
+                    // Show success message
+                    alert(`✅ Reminder set successfully!\n\nMedicine: ${medicineName}\nTimes: ${times.join(', ')}\nDuration: ${duration} days`);
+
+                    // Reset form
+                    e.target.reset();
+                    document.getElementById('timeInputs').innerHTML = '';
+                    addTimeInput();
+                    document.getElementById('startDate').valueAsDate = new Date();
+
+                    // Reload reminders
+                    loadReminders();
+                } catch (error) {
+                    console.error('Error adding reminder:', error);
+                    alert('❌ Failed to add reminder. Please try again.');
+                }
+            } else {
+                alert('❌ Reminder system not loaded. Please refresh the page.');
+            }
+        });
+
+        // Load and display reminders
+        function loadReminders() {
+            const container = document.getElementById('remindersList');
+            
+            if (!window.medicineReminder) {
+                container.innerHTML = '<div class="empty-state"><p>Loading reminders...</p></div>';
+                return;
+            }
+
+            const reminders = window.medicineReminder.getActiveReminders();
+
+            if (reminders.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">💊</div>
+                        <p class="empty-text">No active reminders</p>
+                        <p class="empty-subtext">Add your first medicine reminder using the form above</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = reminders.map(reminder => {
+                const endDate = new Date(reminder.endDate);
+                const now = new Date();
+                const daysLeft = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
+                
+                return `
+                    <div class="reminder-card">
+                        <div class="reminder-header">
+                            <div class="reminder-name">${reminder.medicineName}</div>
+                            <button class="btn-delete" onclick="deleteReminder('${reminder.id}')">Delete</button>
+                        </div>
+                        <div class="reminder-times">
+                            ${reminder.times.map(time => `<span class="time-badge">${formatTime(time)}</span>`).join('')}
+                        </div>
+                        <div class="reminder-info">
+                            📅 ${daysLeft} ${daysLeft === 1 ? 'day' : 'days'} remaining • Ends on ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Format time for display (24hr to 12hr format)
+        function formatTime(time) {
+            const [hours, minutes] = time.split(':');
+            const h = parseInt(hours);
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            const displayHours = h % 12 || 12;
+            return `${displayHours}:${minutes} ${ampm}`;
+        }
+
+        // Delete reminder
+        function deleteReminder(id) {
+            if (confirm('Are you sure you want to delete this reminder?')) {
+                if (window.medicineReminder) {
+                    window.medicineReminder.deleteReminder(id);
+                    loadReminders();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
