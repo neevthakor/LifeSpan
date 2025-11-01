@@ -2,11 +2,8 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Heart, MessageCircle } from "lucide-react"
-import Link from "next/link"
-import { ChatWidget } from "@/components/chat-widget"
-import { ChatDialog } from "@/components/chat-dialog"
+import { SimpleChatDialog } from "@/components/simple-chat-dialog"
 import { useState } from "react"
 
 export default function AnimalCarePage() {
@@ -18,21 +15,21 @@ export default function AnimalCarePage() {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-12">
         {/* Page Header */}
-        <div className="text-center mb-12 animate-fade-in">
+        <div className="text-center mb-12">
           <div className="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center mx-auto mb-6">
             <Heart className="h-10 w-10 text-secondary" />
           </div>
-          <h1 className="text-4xl lg:text-5xl font-bold text-balance mb-4">
+          <h1 className="text-4xl lg:text-5xl font-bold mb-4">
             Animal <span className="text-secondary">Care Services</span>
           </h1>
-          <p className="text-xl text-muted-foreground text-pretty max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Professional veterinary care and pet health services for your beloved animals.
           </p>
         </div>
 
         {/* AI Chat Section */}
-        <div className="max-w-4xl mx-auto animate-fade-in">
-          <Card className="bg-linear-to-r from-secondary/10 to-accent/10 border-secondary/20">
+        <div className="max-w-4xl mx-auto mb-8">
+          <Card className="border-secondary/20">
             <CardContent className="p-8">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="shrink-0">
@@ -47,7 +44,7 @@ export default function AnimalCarePage() {
                   </p>
                   <Button 
                     size="lg" 
-                    className="hover-lift bg-secondary text-secondary-foreground"
+                    className="bg-secondary text-secondary-foreground hover:bg-secondary/90"
                     onClick={() => setChatOpen(true)}
                   >
                     Start Pet Care Chat
@@ -58,15 +55,21 @@ export default function AnimalCarePage() {
             </CardContent>
           </Card>
         </div>
-
-        <ChatWidget specialty="animal" />
       </main>
 
+      {/* Floating Chat Button */}
+      <button
+        onClick={() => setChatOpen(true)}
+        className="fixed bottom-6 right-6 bg-secondary text-secondary-foreground px-6 py-3 rounded-full shadow-lg hover:shadow-xl transition-shadow z-40 flex items-center gap-2"
+      >
+        <MessageCircle className="h-5 w-5" />
+        <span>Chat Now</span>
+      </button>
+
       {/* Chat Dialog */}
-      <ChatDialog 
-        specialty="animal" 
+      <SimpleChatDialog 
         open={chatOpen} 
-        onOpenChange={setChatOpen}
+        onClose={() => setChatOpen(false)}
       />
     </div>
   )
